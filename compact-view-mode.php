@@ -61,16 +61,43 @@ function cvm_edit_screen_js() {
 	jQuery( document ).ready( function( $ ) {
 		$( '.tablenav .view-switch a' ).removeClass( 'current' );
 		$( '#view-switch-compact' ).addClass( 'current' );
-		$( '#the-list .column-date br' ).remove();
-		$( '#the-list .column-date' ).contents().filter( function() {
-			return this.nodeType === Node.TEXT_NODE;
-		}).remove();
 
 		$.each( $( '#the-list tr' ), function() {
-			var $tags = $( this ).find( '.column-tags a' ),
-			    count = $tags.length > 0 ? $tags.length : '&mdash;';
+			minimizeCellData( $( this ) );
+		});
 
-			$( this ).find( '.column-tags' ).html( count );
+		$( '.inline-edit-row' ).on( 'remove', function() {
+			var id = $( this ).prop( 'id' ).replace( 'edit-', '' );
+
+			minimizeCellData( $( '#post-' + id ) );
+		});
+
+		function minimizeCellData( $row ) {
+			$row.find( '.column-date br' ).remove();
+
+			$row.find( '.column-date' ).contents().filter( function() {
+				return this.nodeType === Node.TEXT_NODE;
+			}).remove();
+
+			var $tagCell = $row.find( '.column-tags' ).addClass( 'cvm-original' ),
+			      $clone = $tagCell.clone().removeClass( 'cvm-original' ).addClass( 'cvm-new' );
+
+			$tagCell.after( $clone ).show();
+			$tagCell.hide();
+
+			var $tags = $clone.find( 'a' ),
+			    count = $tags.length > 0 ? '<a href="#" class="cvm-tag-count">' + $tags.length + '</a>' : '&mdash;';
+
+			$clone.html( count );
+		}
+
+		$( '.cvm-tag-count' ).on( 'click', function() {
+			var $row = $( this ).parent().parent();
+
+			$row.find( '.cvm-new' ).hide();
+			$row.find( '.cvm-original' ).show();
+
+			return false;
 		});
 	});
 	</script>
