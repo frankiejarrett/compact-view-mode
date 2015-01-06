@@ -85,7 +85,7 @@ function cvm_edit_screen_js() {
 			$tagCell.after( $clone ).show();
 			$tagCell.hide();
 
-			var $tags = $clone.find( 'a' ),
+			var $tags = $clone.children(),
 			    count = $tags.length > 0 ? '<a href="#" class="cvm-tag-count">' + $tags.length + '</a>' : '&mdash;';
 
 			$clone.html( count );
