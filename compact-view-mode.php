@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: Compact View Mode
- * Description:
+ * Description: View your post list in a more precise and compact way.
  * Version: 0.1.0
  * Author: Frankie Jarrett
  * Author URI: http://frankiejarrett.com
