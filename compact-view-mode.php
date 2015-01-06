@@ -79,7 +79,7 @@ function cvm_edit_screen_js() {
 add_action( 'admin_footer-edit.php', 'cvm_edit_screen_js' );
 
 /**
- * Listens for the mode to change and sets the user setting
+ * Listens for the mode to change and sets/deletes the user setting
  *
  * @action send_headers
  *
