@@ -91,7 +91,7 @@ function cvm_edit_screen_js() {
 			$clone.html( count );
 		}
 
-		$( '.cvm-tag-count' ).on( 'click', function() {
+		$( document ).on( 'click', '.cvm-tag-count', function() {
 			var $row = $( this ).parent().parent();
 
 			$row.find( '.cvm-new' ).hide();
