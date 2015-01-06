@@ -1,6 +1,6 @@
 === Compact View Mode ===
 Contributors:      fjarrett
-Tags:              admin
+Tags:              admin, posts
 Requires at least: 4.0
 Tested up to:      4.1
 Stable tag:        trunk

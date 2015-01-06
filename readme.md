@@ -4,7 +4,7 @@
 View your post list in a more precise and compact way.
 
 **Contributors:** [fjarrett](http://profiles.wordpress.org/fjarrett)  
-**Tags:** [admin](http://wordpress.org/plugins/tags/admin)  
+**Tags:** [admin](http://wordpress.org/plugins/tags/admin), [posts](http://wordpress.org/plugins/tags/posts)  
 **Requires at least:** 4.0  
 **Tested up to:** 4.1  
 **Stable tag:** trunk (master)  
