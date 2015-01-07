@@ -27,7 +27,7 @@ This plugin adds a third mode called Compact, which allows you to fit more posts
 
 == Changelog ==
 
-= 0.1.0 - January 6, 2015 =
+= 0.1.0 - January 7, 2015 =
 
 * Initial release
 
