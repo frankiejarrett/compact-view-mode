@@ -66,12 +66,6 @@ function cvm_edit_screen_js() {
 			minimizeCellData( $( this ) );
 		});
 
-		$( '.inline-edit-row' ).on( 'remove', function() {
-			var id = $( this ).prop( 'id' ).replace( 'edit-', '' );
-
-			minimizeCellData( $( '#post-' + id ) );
-		});
-
 		function minimizeCellData( $row ) {
 			$row.find( '.column-date br' ).remove();
 
