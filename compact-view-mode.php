@@ -119,10 +119,83 @@ function cvm_edit_screen_send_headers() {
 
 	global $typenow;
 
+	$user_id  = get_current_user_id();
+	$meta_key = "manageedit-{$typenow}columnshidden";
+	$columns  = cvm_get_post_columns();
+	$allowed  = cvm_get_allowed_default_columns();
+
+	/**
+	 * Array of columns that are allowed to be viewed by default when switching to compact mode
+	 *
+	 * @return array
+	 */
+	$allowed = apply_filters( 'cvm_allowed_default_columns', $allowed );
+
+	$hide = array_values( array_filter( array_diff( $columns, $allowed ) ) );
+
 	if ( 'compact' === $_REQUEST['mode'] ) {
 		set_user_setting( "cvm_{$typenow}_list_mode", 'compact' );
+		update_user_meta( $user_id, $meta_key, $hide );
 	} else {
 		delete_user_setting( "cvm_{$typenow}_list_mode" );
+		update_user_meta( $user_id, $meta_key, array() );
 	}
 }
 add_action( 'send_headers', 'cvm_edit_screen_send_headers' );
+
+/**
+ * Return an array of all post columns
+ *
+ * @return array
+ */
+function cvm_get_post_columns() {
+	$table   = new WP_Posts_List_Table;
+	$columns = $table->get_columns();
+
+	return array_values( array_filter( array_flip( $columns ) ) );
+}
+
+/**
+ * Return an array of allowed column slugs
+ *
+ * @return array
+ */
+function cvm_get_allowed_default_columns() {
+	$allowed = array( 'cb', 'title', 'author', 'categories', 'tags', 'comments', 'date', 'wpseo-score' );
+
+	/**
+	 * Columns that are allowed to be viewed by default when switching to compact mode
+	 *
+	 * @return array
+	 */
+	return apply_filters( 'cvm_allowed_default_columns', $allowed );
+}
+
+/**
+ * Reset hidden columns on plugin deactivation
+ *
+ * @action deactivate_{plugin}
+ *
+ * @return void
+ */
+function cvm_deactivate() {
+	global $wpdb;
+
+	$wpdb->query(
+		$wpdb->prepare(
+			"UPDATE $wpdb->usermeta SET meta_value = %s WHERE meta_key LIKE 'manageedit-%%columnshidden'",
+			maybe_serialize( array() )
+		)
+	);
+/*
+	$wpdb->query(
+		$wpdb->prepare(
+			"SELECT user_id FROM $wpdb->usermeta WHERE meta_key = 'wp_user-settings' AND meta_value LIKE '%%cvm_%%_list_mode%%'",
+			maybe_serialize( array() )
+		)
+	);
+
+	set_user_setting( 'posts_list_mode', 'list' );
+*/
+}
+register_deactivation_hook( __FILE__, 'cvm_deactivate' );
