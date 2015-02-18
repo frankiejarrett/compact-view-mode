@@ -38,11 +38,11 @@ This plugin adds a third mode called Compact, which allows you to fit more posts
 * Special column compatibility for WordPress SEO by Yoast plugin
 * Fix bug column duplication bug when cancelling Quick Edit mode
 
-Props [fjarrett](https://profiles.wordpress.org/fjarrett/)
+Props [fjarrett](https://github.com/fjarrett)
 
 ### 0.1.0 - January 7, 2015 ###
 * Initial release
 
-Props [fjarrett](https://profiles.wordpress.org/fjarrett/)
+Props [fjarrett](https://github.com/fjarrett)
 
 
