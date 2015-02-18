@@ -18,7 +18,7 @@ function cvm_is_compact() {
 	if (
 		( ! empty( $_REQUEST['mode'] ) && 'compact' === $_REQUEST['mode'] )
 		||
-		'compact' === get_user_setting( "cvm_post_list_mode" )
+		'compact' === get_user_setting( 'cvm_post_list_mode' )
 	) {
 		return true;
 	}
@@ -115,10 +115,9 @@ function cvm_edit_screen_send_headers() {
 		return;
 	}
 
-	$user_id  = get_current_user_id();
-	$meta_key = "manageedit-postcolumnshidden";
-	$columns  = cvm_get_post_columns();
-	$allowed  = cvm_get_allowed_default_columns();
+	$user_id = get_current_user_id();
+	$columns = cvm_get_post_columns();
+	$allowed = cvm_get_allowed_default_columns();
 
 	/**
 	 * Array of columns that are allowed to be viewed by default when switching to compact mode
@@ -130,11 +129,11 @@ function cvm_edit_screen_send_headers() {
 	$hide = array_values( array_filter( array_diff( $columns, $allowed ) ) );
 
 	if ( 'compact' === $_REQUEST['mode'] ) {
-		set_user_setting( "cvm_post_list_mode", 'compact' );
-		update_user_meta( $user_id, $meta_key, $hide );
+		set_user_setting( 'cvm_post_list_mode', 'compact' );
+		update_user_meta( $user_id, 'manageedit-postcolumnshidden', $hide );
 	} else {
-		delete_user_setting( "cvm_post_list_mode" );
-		update_user_meta( $user_id, $meta_key, array() );
+		delete_user_setting( 'cvm_post_list_mode' );
+		update_user_meta( $user_id, 'manageedit-postcolumnshidden', array() );
 	}
 }
 add_action( 'send_headers', 'cvm_edit_screen_send_headers' );
