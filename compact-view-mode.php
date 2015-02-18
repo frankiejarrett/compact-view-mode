@@ -34,6 +34,12 @@ function cvm_is_compact() {
  * @return void
  */
 function cvm_edit_screen_js() {
+	global $typenow;
+
+	if ( 'post' !== $typenow ) {
+		return;
+	}
+
 	$compact_url = add_query_arg( array( 'mode' => 'compact' ) );
 	?>
 	<script>
