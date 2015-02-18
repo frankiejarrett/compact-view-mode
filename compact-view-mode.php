@@ -15,12 +15,10 @@
  * @return bool
  */
 function cvm_is_compact() {
-	global $typenow;
-
 	if (
 		( ! empty( $_REQUEST['mode'] ) && 'compact' === $_REQUEST['mode'] )
 		||
-		'compact' === get_user_setting( "cvm_{$typenow}_list_mode" )
+		'compact' === get_user_setting( "cvm_post_list_mode" )
 	) {
 		return true;
 	}
@@ -111,16 +109,14 @@ function cvm_edit_screen_send_headers() {
 		return;
 	}
 
-	global $pagenow;
+	global $pagenow, $typenow;
 
-	if ( 'edit.php' !== $pagenow || empty( $_REQUEST['mode'] ) ) {
+	if ( 'edit.php' !== $pagenow || 'post' !== $typenow || empty( $_REQUEST['mode'] ) ) {
 		return;
 	}
 
-	global $typenow;
-
 	$user_id  = get_current_user_id();
-	$meta_key = "manageedit-{$typenow}columnshidden";
+	$meta_key = "manageedit-postcolumnshidden";
 	$columns  = cvm_get_post_columns();
 	$allowed  = cvm_get_allowed_default_columns();
 
@@ -134,10 +130,10 @@ function cvm_edit_screen_send_headers() {
 	$hide = array_values( array_filter( array_diff( $columns, $allowed ) ) );
 
 	if ( 'compact' === $_REQUEST['mode'] ) {
-		set_user_setting( "cvm_{$typenow}_list_mode", 'compact' );
+		set_user_setting( "cvm_post_list_mode", 'compact' );
 		update_user_meta( $user_id, $meta_key, $hide );
 	} else {
-		delete_user_setting( "cvm_{$typenow}_list_mode" );
+		delete_user_setting( "cvm_post_list_mode" );
 		update_user_meta( $user_id, $meta_key, array() );
 	}
 }
@@ -181,21 +177,36 @@ function cvm_get_allowed_default_columns() {
 function cvm_deactivate() {
 	global $wpdb;
 
+	// Show all columns for posts
 	$wpdb->query(
 		$wpdb->prepare(
-			"UPDATE $wpdb->usermeta SET meta_value = %s WHERE meta_key LIKE 'manageedit-%%columnshidden'",
-			maybe_serialize( array() )
-		)
-	);
-/*
-	$wpdb->query(
-		$wpdb->prepare(
-			"SELECT user_id FROM $wpdb->usermeta WHERE meta_key = 'wp_user-settings' AND meta_value LIKE '%%cvm_%%_list_mode%%'",
+			"UPDATE $wpdb->usermeta SET meta_value = %s WHERE meta_key = 'manageedit-postcolumnshidden'",
 			maybe_serialize( array() )
 		)
 	);
 
-	set_user_setting( 'posts_list_mode', 'list' );
-*/
+	$results = $wpdb->get_results( "SELECT user_id FROM $wpdb->usermeta WHERE meta_key = 'wp_user-settings' AND meta_value LIKE '%%cvm_post_list_mode%%'", ARRAY_A );
+
+	foreach ( $results as $result ) {
+		$user_id  = absint( $result['user_id'] );
+		$settings = get_user_meta( $user_id, 'wp_user-settings', true );
+		$settings = wp_parse_args( $settings );
+
+		if ( empty( $settings ) ) {
+			continue;
+		}
+
+		foreach ( $settings as $key => $value ) {
+			if ( 'cvm_post_list_mode' === $key ) {
+				unset( $settings[ $key ] );
+			}
+
+			if ( 'posts_list_mode' === $key ) {
+				$settings[ $key ] = 'list';
+			}
+		}
+
+		update_user_meta( $user_id, 'wp_user-settings', http_build_query( $settings ) );
+	}
 }
 register_deactivation_hook( __FILE__, 'cvm_deactivate' );
