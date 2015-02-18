@@ -8,7 +8,7 @@ View your post list in a more precise and compact way.
 **Tags:** [admin](https://wordpress.org/plugins/tags/admin), [posts](https://wordpress.org/plugins/tags/posts)  
 **Requires at least:** 4.0  
 **Tested up to:** 4.1  
-**Stable tag:** 0.2.0  
+**Stable tag:** 0.3.0  
 **License:** [GPLv2 or later](http://www.gnu.org/licenses/gpl-2.0.html)  
 
 [![Build Status](https://travis-ci.org/fjarrett/compact-view-mode.png?branch=master)](https://travis-ci.org/fjarrett/compact-view-mode) 
@@ -32,6 +32,13 @@ This plugin adds a third mode called Compact, which allows you to fit more posts
 ![Click the first icon to enable compact view mode.](assets/screenshot-1.png)
 
 ## Changelog ##
+
+### 0.3.0 - February 18, 2015 ###
+* Add support for compacting the Categories column
+* Properly compact columns when cancelling Quick Edit mode
+* Adjust Author, Categories and Tags column widths
+
+Props [fjarrett](https://github.com/fjarrett)
 
 ### 0.2.0 - February 18, 2015 ###
 * Automatically hide extra columns when compact mode is enabled

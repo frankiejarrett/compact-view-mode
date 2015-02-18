@@ -3,7 +3,7 @@ Contributors:      fjarrett
 Tags:              admin, posts
 Requires at least: 4.0
 Tested up to:      4.1
-Stable tag:        0.2.0
+Stable tag:        0.3.0
 License:           GPLv2 or later
 License URI:       http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -26,6 +26,14 @@ This plugin adds a third mode called Compact, which allows you to fit more posts
 1. Click the first icon to enable compact view mode.
 
 == Changelog ==
+
+= 0.3.0 - February 18, 2015 =
+
+* Add support for compacting the Categories column
+* Properly compact columns when cancelling Quick Edit mode
+* Adjust Author, Categories and Tags column widths
+
+Props [fjarrett](https://github.com/fjarrett)
 
 = 0.2.0 - February 18, 2015 =
 
