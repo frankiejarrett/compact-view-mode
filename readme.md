@@ -4,8 +4,8 @@
 ![Banner](assets/banner-1544x500.png)
 View your post list in a more precise and compact way.
 
-**Contributors:** [fjarrett](http://profiles.wordpress.org/fjarrett)  
-**Tags:** [admin](http://wordpress.org/plugins/tags/admin), [posts](http://wordpress.org/plugins/tags/posts)  
+**Contributors:** [fjarrett](https://profiles.wordpress.org/fjarrett)  
+**Tags:** [admin](https://wordpress.org/plugins/tags/admin), [posts](https://wordpress.org/plugins/tags/posts)  
 **Requires at least:** 4.0  
 **Tested up to:** 4.1  
 **Stable tag:** 0.2.0  
