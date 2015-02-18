@@ -54,6 +54,13 @@ function cvm_edit_screen_js() {
 	.row-actions {
 		margin-left: 15px;
 	}
+	.fixed .column-author {
+		width: 12%;
+	}
+	.fixed .column-categories,
+	.fixed .column-tags {
+		width: 10%;
+	}
 	</style>
 	<script>
 	jQuery( document ).ready( function( $ ) {
@@ -64,30 +71,80 @@ function cvm_edit_screen_js() {
 			minimizeCellData( $( this ) );
 		});
 
+		$( '.inline-edit-row' ).on( 'remove', function() {
+			var id = $( this ).prop( 'id' ).replace( 'edit-', '' );
+
+			minimizeCellData( $( '#post-' + id ) );
+		});
+
 		function minimizeCellData( $row ) {
+			minimizeDateCell( $row );
+			minimizeTagCell( $row );
+			minimizeCatCell( $row );
+		}
+
+		function minimizeDateCell( $row ) {
 			$row.find( '.column-date br' ).remove();
 
 			$row.find( '.column-date' ).contents().filter( function() {
 				return this.nodeType === Node.TEXT_NODE;
 			}).remove();
+		}
 
-			var $tagCell = $row.find( '.column-tags' ).addClass( 'cvm-original' ),
-			      $clone = $tagCell.clone().removeClass( 'cvm-original' ).addClass( 'cvm-new' );
+		function minimizeTagCell( $row ) {
+			var hasOriginalTag = $row.find( '.column-tags' ).hasClass( 'cvm-original-tags' );
 
-			$tagCell.after( $clone ).show();
+			if ( hasOriginalTag ) {
+				var $tagCell  = $row.find( '.cvm-original-tags' ),
+				    $tagClone = $row.find( '.cvm-new-tags' );
+			} else {
+				var $tagCell  = $row.find( '.column-tags' ).addClass( 'cvm-original-tags' ),
+				    $tagClone = $tagCell.clone().removeClass( 'cvm-original-tags' ).addClass( 'cvm-new-tags' );
+			}
+
+			$tagCell.after( $tagClone ).show();
 			$tagCell.hide();
 
-			var $tags = $clone.children(),
-			    count = $tags.length > 0 ? '<a href="#" class="cvm-tag-count">' + $tags.length + '</a>' : '&mdash;';
+			var $tags    = $tagCell.children(),
+			    tagCount = $tags.length > 0 ? '<a href="#" class="cvm-tag-count">' + $tags.length + '</a>' : '&mdash;';
 
-			$clone.html( count );
+			$tagClone.html( tagCount ).show();
+		}
+
+		function minimizeCatCell( $row ) {
+			var hasOriginalCat = $row.find( '.column-categories' ).hasClass( 'cvm-original-cats' );
+
+			if ( hasOriginalCat ) {
+				var $catCell  = $row.find( '.cvm-original-cats' ),
+				    $catClone = $row.find( '.cvm-new-cats' );
+			} else {
+				var $catCell  = $row.find( '.column-categories' ).addClass( 'cvm-original-cats' ),
+				    $catClone = $catCell.clone().removeClass( 'cvm-original-cats' ).addClass( 'cvm-new-cats' );
+			}
+
+			$catCell.after( $catClone ).show();
+			$catCell.hide();
+
+			var $cats    = $catCell.children(),
+			    catCount = $cats.length > 0 ? '<a href="#" class="cvm-cat-count">' + $cats.length + '</a>' : '&mdash;';
+
+			$catClone.html( catCount ).show();
 		}
 
 		$( document ).on( 'click', '.cvm-tag-count', function() {
 			var $row = $( this ).parent().parent();
 
-			$row.find( '.cvm-new' ).hide();
-			$row.find( '.cvm-original' ).show();
+			$row.find( '.cvm-new-tags' ).hide();
+			$row.find( '.cvm-original-tags' ).show();
+
+			return false;
+		});
+
+		$( document ).on( 'click', '.cvm-cat-count', function() {
+			var $row = $( this ).parent().parent();
+
+			$row.find( '.cvm-new-cats' ).hide();
+			$row.find( '.cvm-original-cats' ).show();
 
 			return false;
 		});
