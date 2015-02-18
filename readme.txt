@@ -3,7 +3,7 @@ Contributors:      fjarrett
 Tags:              admin, posts
 Requires at least: 4.0
 Tested up to:      4.1
-Stable tag:        trunk
+Stable tag:        0.2.0
 License:           GPLv2 or later
 License URI:       http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -26,6 +26,14 @@ This plugin adds a third mode called Compact, which allows you to fit more posts
 1. Click the first icon to enable compact view mode.
 
 == Changelog ==
+
+= 0.2.0 - February 18, 2015 =
+
+* Automatically hide extra columns when compact mode is enabled
+* Special column compatibility for WordPress SEO by Yoast plugin
+* Fix bug column duplication bug when cancelling Quick Edit mode
+
+Props [fjarrett](https://profiles.wordpress.org/fjarrett/)
 
 = 0.1.0 - January 7, 2015 =
 
