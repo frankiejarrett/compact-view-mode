@@ -11,7 +11,7 @@ View your post list in a more precise and compact way.
 
 == Description ==
 
-**Did you find this plugin helpful? Please consider [writing a review](https://wordpress.org/support/view/plugin-reviews/compact-view-mode).**
+**Did you find this plugin helpful? Please consider [leaving a 5-star review](https://wordpress.org/support/view/plugin-reviews/compact-view-mode).**
 
 Are you a minimalist? This plugin is for you.
 
