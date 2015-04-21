@@ -7,7 +7,7 @@ View your post list in a more precise and compact way.
 **Contributors:** [fjarrett](https://profiles.wordpress.org/fjarrett)  
 **Tags:** [admin](https://wordpress.org/plugins/tags/admin), [posts](https://wordpress.org/plugins/tags/posts)  
 **Requires at least:** 4.0  
-**Tested up to:** 4.1  
+**Tested up to:** 4.2  
 **Stable tag:** 0.3.1  
 **License:** [GPLv2 or later](http://www.gnu.org/licenses/gpl-2.0.html)  
 
