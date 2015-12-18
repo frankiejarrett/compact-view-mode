@@ -1,0 +1,13 @@
+td.column-title strong,
+.row-actions {
+	float: left;
+	display: inline-block;
+}
+
+.row-actions {
+	margin-left: 15px;
+}
+
+.fixed .column-author {
+	width: 12%;
+}
