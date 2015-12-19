@@ -61,15 +61,15 @@ jQuery( document ).ready( function( $ ) {
 
 			$compact.html( count ).show();
 
+			$original.show();
+
+			$compact.hide();
+
 			if ( $taxes.length > 1 ) {
 
 				$original.hide();
+
 				$compact.show();
-
-			} else {
-
-				$original.show();
-				$compact.hide();
 
 			}
 
