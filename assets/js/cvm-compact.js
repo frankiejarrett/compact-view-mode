@@ -36,31 +36,44 @@ jQuery( document ).ready( function( $ ) {
 
 	function minTaxCells( $row ) {
 
-		var classes = [ 'column-categories', 'column-tags', 'column-taxonomy-' ];
+		var cols = [
+			'column-categories',
+			'column-tags',
+			'column-taxonomy-'
+		];
 
-		$.each( classes, function( k, v ) {
+		$.each( cols, function( i, className ) {
 
-			$( '.fixed th:regex(class, .*' + v + '.*)' ).css( 'width', '10%' );
+			$( '.fixed th:regex(class, .*' + className + '.*)' ).css( 'width', '12%' );
 
-			var $taxCell = $row.find( 'td:regex(class, .*' + v + '.*)' );
+			var $cell     = $row.find( 'td:regex(class, .*' + className + '.*)' ),
+			    $cellData = $cell.html();
 
-			if ( ! $taxCell.hasClass( 'cvm-compacted' ) ) {
+			$cell
+				.empty()
+				.addClass( 'cvm-compacted' )
+				.append( '<div class="cvm-original"></div><div class="cvm-compact"></div>' );
 
-				var $contents = $taxCell.html();
+			var $original = $cell.find( '.cvm-original' ).html( $cellData ),
+			    $compact  = $cell.find( '.cvm-compact' ),
+			    $taxes    = $original.children( 'a' ),
+			    count     = ( $taxes.length > 0 ) ? '<a href="#" class="cvm-tax-count">' + $taxes.length + '</a>' : '&mdash;';
 
-				$taxCell.empty().append( '<div class="cvm-original"></div><div class="cvm-compact"></div>' ).addClass( 'cvm-compacted' ).find( '.cvm-original' ).html( $contents );
+			$compact.html( count ).show();
+
+			if ( $taxes.length > 1 ) {
+
+				$original.hide();
+				$compact.show();
+
+			} else {
+
+				$original.show();
+				$compact.hide();
 
 			}
 
-			var $taxOriginal = $taxCell.find( '.cvm-original' ).hide(),
-			    $taxCompact  = $taxCell.find( '.cvm-compact' ).show();
-
-			var $tax  = $taxOriginal.children( 'a' ),
-			    count = ( $tax.length > 0 ) ? '<a href="#" class="cvm-tax-count">' + $tax.length + '</a>' : '&mdash;';
-
-			$taxCompact.html( count ).show();
-
-		});
+		} );
 
 	}
 

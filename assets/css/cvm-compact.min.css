@@ -1,1 +1,1 @@
-.row-actions,td.column-title strong{float:left;display:inline-block}.row-actions{margin-left:15px}.fixed .column-author{width:12%}
+.row-actions,td.column-title strong{float:left;display:inline-block}.row-actions{margin-left:15px}.fixed .column-author{width:12%}.column-comments .post-com-count,.column-response .post-com-count{float:left;margin-top:0}.column-comments .comment-count-approved,.column-comments .comment-count-no-comments,.column-response .comment-count-approved,.column-response .comment-count-no-comments{display:inline-block;font-size:10px;min-width:auto}

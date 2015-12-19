@@ -11,3 +11,18 @@ td.column-title strong,
 .fixed .column-author {
 	width: 12%;
 }
+
+.column-response .post-com-count,
+.column-comments .post-com-count {
+	float: left;
+	margin-top: 0;
+}
+
+.column-response .comment-count-no-comments,
+.column-response .comment-count-approved,
+.column-comments .comment-count-no-comments,
+.column-comments .comment-count-approved {
+	display: inline-block;
+	font-size: 10px;
+	min-width: auto;
+}
