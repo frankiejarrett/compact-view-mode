@@ -46,6 +46,17 @@ td.column-title strong {
 	display: inline-block;
 	font-size: 10px;
 	min-width: auto;
+	height: 1.8em;
+	padding: 0 6px;
+	line-height: 18px;
+}
+
+.column-response .post-com-count-no-comments:after,
+.column-response .post-com-count-approved:after,
+.column-comments .post-com-count-no-comments:after,
+.column-comments .post-com-count-approved:after {
+	margin-left: 6px;
+	border-top-width: 4px;
 }
 
 .cvm-tax-count {
