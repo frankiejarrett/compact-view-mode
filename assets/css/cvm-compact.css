@@ -27,6 +27,7 @@ td.column-title strong {
 .row-actions {
 	display: inline-block;
 	float: left;
+	padding-top: 0;
 }
 
 .column-response .post-com-count,
