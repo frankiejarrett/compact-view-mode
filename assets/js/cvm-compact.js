@@ -28,7 +28,7 @@ jQuery( function( $ ) {
 
 		$row.find( '.column-date' ).contents().filter( function() {
 
-			return this.nodeType === Node.TEXT_NODE;
+			return 3 === this.nodeType; // Node.TEXT_NODE == 3, IE8 compat
 
 		} ).remove();
 

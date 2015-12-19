@@ -29,10 +29,6 @@ td.column-title strong {
 	float: left;
 }
 
-.fixed .column-author {
-	width: 12%;
-}
-
 .column-response .post-com-count,
 .column-comments .post-com-count {
 	float: left;
