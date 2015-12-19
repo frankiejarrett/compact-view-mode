@@ -109,7 +109,7 @@ function cvm_admin_enqueue_scripts( $hook ) {
 
 		wp_enqueue_script( 'cvm-jquery-regex', COMPACT_VIEW_MODE_URL . "assets/js/jquery.regex.min.js", array( 'jquery' ), '1.0.0' );
 
-		wp_enqueue_script( 'cvm-compact', COMPACT_VIEW_MODE_URL . "assets/js/cvm-compact{$suffix}.js", array( 'jquery', 'cvm-jquery-regex' ), COMPACT_VIEW_MODE_VERSION );
+		wp_enqueue_script( 'cvm-compact', COMPACT_VIEW_MODE_URL . "assets/js/cvm-compact{$suffix}.js", array( 'jquery', 'cvm-jquery-regex', 'inline-edit-post' ), COMPACT_VIEW_MODE_VERSION );
 
 		wp_enqueue_style( 'cvm-compact', COMPACT_VIEW_MODE_URL . "assets/css/cvm-compact{$suffix}.css", array(), COMPACT_VIEW_MODE_VERSION );
 

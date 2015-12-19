@@ -1,11 +1,32 @@
-td.column-title strong,
-.row-actions {
+th.manage-column.column-categories:before {
+	font: 20px/1 dashicons;
+	content: '\f318';
+}
+
+th.manage-column.column-tags:before {
+	font: 20px/1 dashicons;
+	content: '\f323';
+}
+
+th.manage-column.column-date a span:not(.sorting-indicator) {
+	display: none;
+}
+
+th.manage-column.column-date a:before {
+	font: 20px/1 dashicons;
+	content: '\f469';
 	float: left;
+}
+
+td.column-title strong {
 	display: inline-block;
+	float: left;
+	margin-right: 15px;
 }
 
 .row-actions {
-	margin-left: 15px;
+	display: inline-block;
+	float: left;
 }
 
 .fixed .column-author {

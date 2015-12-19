@@ -1,20 +1,16 @@
-jQuery( document ).ready( function( $ ) {
+jQuery( function( $ ) {
 
-	function minRows() {
+	$.each( $( '#the-list tr' ), function() {
 
-		$.each( $( '#the-list tr' ), function() {
+		minCells( $( this ) );
 
-			minCells( $( this ) );
+	} );
 
-		} );
+	$( document ).on( 'remove', 'tr.inline-editor', function() {
 
-	}
+		var id = $( this ).prop( 'id' ).replace( 'edit-', '' );
 
-	minRows();
-
-	$( '.inline-editor' ).on( 'remove', function() {
-
-		minRows();
+		minCells( $( '#post-' + id ) );
 
 	} );
 
@@ -48,7 +44,13 @@ jQuery( document ).ready( function( $ ) {
 
 		$.each( cols, function( i, className ) {
 
-			$( '.fixed th:regex(class, .*' + className + '.*)' ).css( 'width', '12%' );
+			$( '.fixed th.manage-column.' + className ).empty();
+
+		} );
+
+		$.each( cols, function( i, className ) {
+
+			$( '.fixed th:regex(class, .*' + className + '.*)' ).css( 'width', '5.5em' );
 
 			var $cell     = $row.find( 'td:regex(class, .*' + className + '.*)' ),
 			    $cellData = $cell.html();
@@ -58,18 +60,10 @@ jQuery( document ).ready( function( $ ) {
 				.addClass( 'cvm-compacted' )
 				.append( '<div class="cvm-original"></div><div class="cvm-compact"></div>' );
 
-			var $original = $cell.find( '.cvm-original' ).html( $cellData ).show(),
+			var $original = $cell.find( '.cvm-original' ).html( $cellData ).hide(),
 			    $taxes    = $original.children( 'a' ),
 			    count     = ( $taxes.length > 0 ) ? '<a href="#" class="cvm-tax-count">' + $taxes.length + '</a>' : '&mdash;',
-			    $compact  = $cell.find( '.cvm-compact' ).html( count ).hide();
-
-			if ( $taxes.length > 1 ) {
-
-				$original.hide();
-
-				$compact.show();
-
-			}
+			    $compact  = $cell.find( '.cvm-compact' ).html( count ).show();
 
 		} );
 
@@ -81,6 +75,6 @@ jQuery( document ).ready( function( $ ) {
 
 		return false;
 
-	});
+	} );
 
-});
+} );
