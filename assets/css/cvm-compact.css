@@ -65,8 +65,9 @@ td.column-title strong {
 	color: #fff;
 	font-size: 10px;
 	text-align: center;
+	padding: 0 6px;
 	line-height: 20px;
-	min-width: 20px;
+	min-width: 8px;
 	min-height: 20px;
 	border-radius: 20px;
 }
