@@ -45,7 +45,7 @@ td.column-title strong {
 .column-comments .comment-count-approved {
 	display: inline-block;
 	font-size: 10px;
-	min-width: auto;
+	min-width: 20px;
 	height: 1.8em;
 	padding: 0 6px;
 	line-height: 18px;
