@@ -62,7 +62,9 @@ jQuery( function( $ ) {
 
 			var $original = $cell.find( '.cvm-original' ).html( $cellData ).hide(),
 			    $taxes    = $original.children( 'a' ),
-			    count     = ( $taxes.length > 0 ) ? '<a href="#" class="cvm-tax-count">' + $taxes.length + '</a>' : '&mdash;',
+			    names     = $taxes.slice( 0, 5 ).map( function() { return $( this ).text(); } ).get().join( ', ' ),
+			    names     = ( $taxes.length > 5 ) ? names + ' &hellip;' : names,
+			    count     = ( $taxes.length > 0 ) ? '<a href="#" class="cvm-tax-count" title="' + names + '">' + $taxes.length + '</a>' : '&mdash;',
 			    $compact  = $cell.find( '.cvm-compact' ).html( count ).show();
 
 		} );
