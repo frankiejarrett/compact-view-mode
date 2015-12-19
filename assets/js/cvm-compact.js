@@ -1,16 +1,20 @@
 jQuery( document ).ready( function( $ ) {
 
-	$.each( $( '#the-list tr' ), function() {
+	function minRows() {
 
-		minCells( $( this ) );
+		$.each( $( '#the-list tr' ), function() {
 
-	} );
+			minCells( $( this ) );
 
-	$( '.inline-edit-row' ).on( 'remove', function() {
+		} );
 
-		var id = $( this ).prop( 'id' ).replace( 'edit-', '' );
+	}
 
-		minCells( $( '#post-' + id ) );
+	minRows();
+
+	$( '.inline-editor' ).on( 'remove', function() {
+
+		minRows();
 
 	} );
 
@@ -54,16 +58,10 @@ jQuery( document ).ready( function( $ ) {
 				.addClass( 'cvm-compacted' )
 				.append( '<div class="cvm-original"></div><div class="cvm-compact"></div>' );
 
-			var $original = $cell.find( '.cvm-original' ).html( $cellData ),
-			    $compact  = $cell.find( '.cvm-compact' ),
+			var $original = $cell.find( '.cvm-original' ).html( $cellData ).show(),
 			    $taxes    = $original.children( 'a' ),
-			    count     = ( $taxes.length > 0 ) ? '<a href="#" class="cvm-tax-count">' + $taxes.length + '</a>' : '&mdash;';
-
-			$compact.html( count ).show();
-
-			$original.show();
-
-			$compact.hide();
+			    count     = ( $taxes.length > 0 ) ? '<a href="#" class="cvm-tax-count">' + $taxes.length + '</a>' : '&mdash;',
+			    $compact  = $cell.find( '.cvm-compact' ).html( count ).hide();
 
 			if ( $taxes.length > 1 ) {
 

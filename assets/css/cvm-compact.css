@@ -26,3 +26,21 @@ td.column-title strong,
 	font-size: 10px;
 	min-width: auto;
 }
+
+.cvm-tax-count {
+	display: inline-block;
+	background-color: #72777c;
+	color: #fff;
+	font-size: 10px;
+	text-align: center;
+	line-height: 20px;
+	min-width: 20px;
+	min-height: 20px;
+	border-radius: 20px;
+}
+
+.cvm-tax-count:hover,
+.cvm-tax-count:focus {
+	background-color: #0073aa;
+	color: #fff;
+}
