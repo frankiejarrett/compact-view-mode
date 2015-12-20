@@ -84,7 +84,7 @@ function cvm_is_edit_screen() {
  */
 function cvm_admin_enqueue_scripts( $hook ) {
 
-	if ( 'edit.php' !== $hook || ! cvm_is_view_mode_post_type() ) {
+	if ( 'edit.php' !== $hook || ! cvm_is_view_mode_post_type() || ! cvm_is_compact() ) {
 
 		return;
 
@@ -92,31 +92,38 @@ function cvm_admin_enqueue_scripts( $hook ) {
 
 	$suffix = SCRIPT_DEBUG ? '' : '.min';
 
-	wp_enqueue_script( 'cvm-field', COMPACT_VIEW_MODE_URL . "assets/js/cvm-field{$suffix}.js", array( 'jquery' ), COMPACT_VIEW_MODE_VERSION );
+	wp_enqueue_script( 'cvm-jquery-regex', COMPACT_VIEW_MODE_URL . "assets/js/jquery.regex.min.js", array( 'jquery' ), COMPACT_VIEW_MODE_VERSION );
 
-	wp_localize_script(
-		'cvm-field',
-		'cvm_global',
-		array(
-			'is_compact' => cvm_is_compact(),
-			'i18n'       => array(
-				'field_label' => __( 'Compact View', 'compact-view-mode' ),
-			),
-		)
-	);
+	wp_enqueue_script( 'cvm-compact', COMPACT_VIEW_MODE_URL . "assets/js/cvm-compact{$suffix}.js", array( 'jquery', 'cvm-jquery-regex', 'inline-edit-post' ), COMPACT_VIEW_MODE_VERSION );
 
-	if ( cvm_is_compact() ) {
-
-		wp_enqueue_script( 'cvm-jquery-regex', COMPACT_VIEW_MODE_URL . "assets/js/jquery.regex.min.js", array( 'jquery' ), '1.0.0' );
-
-		wp_enqueue_script( 'cvm-compact', COMPACT_VIEW_MODE_URL . "assets/js/cvm-compact{$suffix}.js", array( 'jquery', 'cvm-jquery-regex', 'inline-edit-post' ), COMPACT_VIEW_MODE_VERSION );
-
-		wp_enqueue_style( 'cvm-compact', COMPACT_VIEW_MODE_URL . "assets/css/cvm-compact{$suffix}.css", array(), COMPACT_VIEW_MODE_VERSION );
-
-	}
+	wp_enqueue_style( 'cvm-compact', COMPACT_VIEW_MODE_URL . "assets/css/cvm-compact{$suffix}.css", array(), COMPACT_VIEW_MODE_VERSION );
 
 }
 add_action( 'admin_enqueue_scripts', 'cvm_admin_enqueue_scripts' );
+
+/**
+ * Modify the DOM on edit screens
+ *
+ * @action admin_footer-edit.php
+ */
+function cvm_edit_screen_js() {
+
+	if ( ! cvm_is_view_mode_post_type() ) {
+
+		return;
+
+	}
+
+	?>
+	<script type="text/javascript">
+		jQuery( function( $ ) {
+			$( '#adv-settings .view-mode legend' ).after( "<label for='compact-view-mode'><input id='compact-view-mode' type='radio' name='mode' value='compact'<?php checked( cvm_is_compact() ) ?> /> <?php _e( 'Compact View', 'compact-view-mode' ) ?></label>" );
+		} );
+	</script>
+	<?php
+
+}
+add_action( 'admin_footer-edit.php', 'cvm_edit_screen_js' );
 
 /**
  * Listens for the mode to change and sets/deletes the user setting
