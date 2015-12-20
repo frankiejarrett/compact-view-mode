@@ -102,7 +102,7 @@ function cvm_admin_enqueue_scripts( $hook ) {
 add_action( 'admin_enqueue_scripts', 'cvm_admin_enqueue_scripts' );
 
 /**
- * Modify the DOM on edit screens
+ * Add the Compact View field to screen options
  *
  * @action admin_footer-edit.php
  */
