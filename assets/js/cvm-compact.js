@@ -6,15 +6,19 @@ jQuery( function( $ ) {
 
 	} );
 
-	$( document ).on( 'remove', 'tr.inline-editor', function() {
+	$( document ).on( 'remove', 'tr.quick-edit-row', function() {
+
+		console.log( 'hey' );
 
 		var id = $( this ).prop( 'id' ).replace( 'edit-', '' );
 
-		minCells( $( '#post-' + id ) );
+		minCells( $( '#post-' . id ) );
 
 	} );
 
 	function minCells( $row ) {
+
+		$( '.fixed th.manage-column.column-author' ).empty();
 
 		minDateCell( $row );
 
@@ -50,7 +54,7 @@ jQuery( function( $ ) {
 
 		$.each( cols, function( i, className ) {
 
-			$( '.fixed th:regex(class, .*' + className + '.*)' ).css( 'width', '5.5em' );
+			$( '.fixed th:regex(class, .*' + className + '.*)' ).css( 'width', '4em' );
 
 			var $cell     = $row.find( 'td:regex(class, .*' + className + '.*)' ),
 			    $cellData = $cell.html();
