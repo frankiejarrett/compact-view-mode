@@ -8,8 +8,6 @@ jQuery( function( $ ) {
 
 	$( document ).on( 'remove', 'tr.quick-edit-row', function() {
 
-		console.log( 'hey' );
-
 		var id = $( this ).prop( 'id' ).replace( 'edit-', '' );
 
 		minCells( $( '#post-' . id ) );

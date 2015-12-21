@@ -46,7 +46,7 @@ th.manage-column.column-date a span.sorting-indicator:before {
 }
 
 th.manage-column.column-date > a:before {
-	content: '\f469';
+	content: '\f145';
 	float: left;
 	top: 0;
 }
@@ -59,7 +59,7 @@ td.column-title strong {
 
 .row-actions {
 	display: inline-block;
-	float: left;
+	float: right;
 	padding-top: 1px;
 }
 
