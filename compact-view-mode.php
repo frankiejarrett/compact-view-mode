@@ -54,7 +54,7 @@ final class Compact_View_Mode {
 
 		add_action( 'admin_footer-edit.php', array( $this, 'edit_screen_footer' ) );
 
-		register_deactivation_hook( __FILE__, array( $this, 'deactivate' ) );
+		register_deactivation_hook( __FILE__, array( __CLASS__, 'deactivate' ) );
 
 	}
 
@@ -197,11 +197,17 @@ final class Compact_View_Mode {
 	}
 
 	/**
-	 * Reset user settings when plugin is deactivated
+	 * Reset user settings when the plugin is deactivated
 	 *
 	 * @action deactivate_{plugin}
 	 */
 	public static function deactivate() {
+
+		if ( ! (bool) apply_filters( 'cvm_reset_on_deactivate', true ) ) {
+
+			return;
+
+		}
 
 		global $wpdb;
 
