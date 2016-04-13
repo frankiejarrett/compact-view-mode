@@ -1,15 +1,18 @@
 <?php
 /**
  * Plugin Name: Compact View Mode
- * Description: View your post list in a more precise and compact way.
- * Version: 0.3.1
+ * Description: Adds a Compact View mode to the screen options when viewing posts.
+ * Version: 0.4.0
  * Author: Frankie Jarrett
  * Author URI: https://frankiejarrett.com
- * License: GPLv2+
  * Text Domain: compact-view-mode
+ * License: GNU General Public License v2.0
+ * License URI: https://www.gnu.org/licenses/gpl-2.0.html
+ *
+ * Copyright © 2016 Frankie Jarrett. All Rights Reserved.
  */
 
-define( 'COMPACT_VIEW_MODE_VERSION', '0.3.1' );
+define( 'COMPACT_VIEW_MODE_VERSION', '0.4.0' );
 define( 'COMPACT_VIEW_MODE_PLUGIN', plugin_basename( __FILE__ ) );
 define( 'COMPACT_VIEW_MODE_DIR', plugin_dir_path( __FILE__ ) );
 define( 'COMPACT_VIEW_MODE_URL', plugin_dir_url( __FILE__ ) );
@@ -17,30 +20,32 @@ define( 'COMPACT_VIEW_MODE_URL', plugin_dir_url( __FILE__ ) );
 final class Compact_View_Mode {
 
 	/**
-	 * User setting key
+	 * User setting key.
 	 *
 	 * @var string
 	 */
 	const USER_SETTING_KEY = 'cvm_post_list_mode';
 
 	/**
-	 * User setting value
+	 * User setting value.
 	 *
 	 * @var string
 	 */
 	const USER_SETTING_VALUE = 'compact';
 
 	/**
-	 * Plugin instance
+	 * Plugin instance.
 	 *
-	 * @var object
+	 * @var Compact_View_Mode
 	 */
 	private static $instance;
 
 	/**
-	 * Class constructor
+	 * Class constructor.
 	 */
 	public function __construct() {
+
+		register_deactivation_hook( __FILE__, array( __CLASS__, 'deactivate' ) );
 
 		if ( ! is_admin() ) {
 
@@ -48,20 +53,16 @@ final class Compact_View_Mode {
 
 		}
 
-		add_action( 'send_headers', array( $this, 'send_headers' ) );
-
+		add_action( 'send_headers',          array( $this, 'send_headers' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ) );
-
 		add_action( 'admin_footer-edit.php', array( $this, 'edit_screen_footer' ) );
-
-		register_deactivation_hook( __FILE__, array( __CLASS__, 'deactivate' ) );
 
 	}
 
 	/**
-	 * Get plugin instance
+	 * Return the plugin instance.
 	 *
-	 * @return object
+	 * @return Compact_View_Mode
 	 */
 	public static function instance() {
 
@@ -82,8 +83,7 @@ final class Compact_View_Mode {
 	 */
 	public function is_compact() {
 
-		$query_var = ! empty( $_GET['mode'] ) ? $_GET['mode'] : null;
-
+		$query_var    = ! empty( $_GET['mode'] ) ? $_GET['mode'] : null;
 		$user_setting = get_user_setting( static::USER_SETTING_KEY );
 
 		return in_array( static::USER_SETTING_VALUE, array( $query_var, $user_setting ) );
@@ -124,7 +124,7 @@ final class Compact_View_Mode {
 	}
 
 	/**
-	 * Enqueue scripts and styles
+	 * Enqueue scripts and styles.
 	 *
 	 * @action admin_enqueue_scripts
 	 *
@@ -141,7 +141,6 @@ final class Compact_View_Mode {
 		$suffix = SCRIPT_DEBUG ? '' : '.min';
 
 		wp_enqueue_script( 'cvm-jquery-regex', COMPACT_VIEW_MODE_URL . "assets/js/jquery.regex.min.js", array( 'jquery' ), COMPACT_VIEW_MODE_VERSION );
-
 		wp_enqueue_script( 'cvm-compact', COMPACT_VIEW_MODE_URL . "assets/js/cvm-compact{$suffix}.js", array( 'jquery', 'cvm-jquery-regex', 'inline-edit-post' ), COMPACT_VIEW_MODE_VERSION );
 
 		wp_enqueue_style( 'cvm-compact', COMPACT_VIEW_MODE_URL . "assets/css/cvm-compact{$suffix}.css", array(), COMPACT_VIEW_MODE_VERSION );
@@ -149,7 +148,7 @@ final class Compact_View_Mode {
 	}
 
 	/**
-	 * Add a Compact View field to the screen options
+	 * Add a Compact View field to the screen options.
 	 *
 	 * @action admin_footer-edit.php
 	 */
@@ -172,7 +171,7 @@ final class Compact_View_Mode {
 	}
 
 	/**
-	 * Listens for the mode to change and sets the user setting
+	 * Listens for the mode to change and sets the user setting.
 	 *
 	 * @action send_headers
 	 */
@@ -197,12 +196,19 @@ final class Compact_View_Mode {
 	}
 
 	/**
-	 * Reset user settings when the plugin is deactivated
+	 * Reset user settings when the plugin is deactivated.
 	 *
 	 * @action deactivate_{plugin}
 	 */
 	public static function deactivate() {
 
+		/**
+		 * Remove user setting on deactivation.
+		 *
+		 * @since 0.4.0
+		 *
+		 * @var bool
+		 */
 		if ( ! (bool) apply_filters( 'cvm_reset_on_deactivate', true ) ) {
 
 			return;
@@ -212,13 +218,11 @@ final class Compact_View_Mode {
 		global $wpdb;
 
 		$user_setting_key = static::USER_SETTING_KEY;
+		$results          = $wpdb->get_col( "SELECT user_id FROM {$wpdb->usermeta} WHERE meta_key = 'wp_user-settings' AND meta_value LIKE '%%{$user_setting_key}%%';" );
 
-		$results = $wpdb->get_results( "SELECT user_id FROM {$wpdb->usermeta} WHERE meta_key = 'wp_user-settings' AND meta_value LIKE '%%{$user_setting_key}%%'", ARRAY_A );
+		foreach ( $results as $user_id ) {
 
-		foreach ( $results as $result ) {
-
-			$user_id = absint( $result['user_id'] );
-
+			$user_id  = absint( $user_id );
 			$settings = wp_parse_args( get_user_meta( $user_id, 'wp_user-settings', true ) );
 
 			unset( $settings[ $user_setting_key ] );
