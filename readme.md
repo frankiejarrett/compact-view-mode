@@ -36,6 +36,7 @@ This plugin adds a third mode called Compact, which allows you to fit more posts
 ### 0.4.0 - April 13, 2016 ###
 * New: Indicate support for WordPress 4.5.
 * New: Taxonomies compacted into bubbles like comments.
+* Tweak: Quick Edit controls now float to the right on hover.
 * Fix: Compatibility issue introduced in WordPress 4.4.
 
 Props [fjarrett](https://github.com/fjarrett)
