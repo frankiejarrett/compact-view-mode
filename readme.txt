@@ -23,7 +23,7 @@ This plugin adds a third mode called Compact, which allows you to fit more posts
 
 == Screenshots ==
 
-1. Click the first icon to enable compact view mode.
+1. Select Compact View under View Mode in Screen Options and click Apply.
 
 == Changelog ==
 
