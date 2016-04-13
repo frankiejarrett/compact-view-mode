@@ -6,12 +6,12 @@ View your post list in a more precise and compact way.
 
 **Contributors:** [fjarrett](https://profiles.wordpress.org/fjarrett)  
 **Tags:** [admin](https://wordpress.org/plugins/tags/admin), [posts](https://wordpress.org/plugins/tags/posts)  
-**Requires at least:** 4.0  
-**Tested up to:** 4.2  
-**Stable tag:** 0.3.1  
+**Requires at least:** 4.4  
+**Tested up to:** 4.5  
+**Stable tag:** 0.4.0  
 **License:** [GPLv2 or later](http://www.gnu.org/licenses/gpl-2.0.html)  
 
-[![Build Status](https://travis-ci.org/fjarrett/compact-view-mode.png?branch=master)](https://travis-ci.org/fjarrett/compact-view-mode) 
+[![Build Status](https://travis-ci.org/fjarrett/compact-view-mode.svg?branch=master)](https://travis-ci.org/fjarrett/compact-view-mode) 
 
 ## Description ##
 
@@ -33,25 +33,35 @@ This plugin adds a third mode called Compact, which allows you to fit more posts
 
 ## Changelog ##
 
+### 0.4.0 - April 13, 2016 ###
+* New: Indicate support for WordPress 4.5.
+* New: Taxonomies compacted into bubbles like comments.
+* Tweak: Quick Edit controls now float to the right on hover.
+* Fix: Compatibility issue introduced in WordPress 4.4.
+
+Props [fjarrett](https://github.com/fjarrett)
+
 ### 0.3.1 - February 18, 2015 ###
-* Fix bug causing other post types to be affected by compact view
+* Fix: Bug causing other post types to be affected by compact view.
+
+Props [fjarrett](https://github.com/fjarrett)
 
 ### 0.3.0 - February 18, 2015 ###
-* Add support for compacting the Categories column
-* Properly compact columns when cancelling Quick Edit mode
-* Adjust Author, Categories and Tags column widths
+* New: Add support for compacting the Categories column.
+* Tweak: Properly compact columns when cancelling Quick Edit mode.
+* Tweak: Adjust the Author, Categories and Tags column widths.
 
 Props [fjarrett](https://github.com/fjarrett)
 
 ### 0.2.0 - February 18, 2015 ###
-* Automatically hide extra columns when compact mode is enabled
-* Special column compatibility for WordPress SEO by Yoast plugin
-* Fix bug column duplication bug when cancelling Quick Edit mode
+* New: Special column compatibility for WordPress SEO by Yoast plugin.
+* Tweak: Automatically hide extra columns when compact mode is enabled.
+* Fix: Column duplication bug when cancelling Quick Edit mode.
 
 Props [fjarrett](https://github.com/fjarrett)
 
 ### 0.1.0 - January 7, 2015 ###
-* Initial release
+* Initial release.
 
 Props [fjarrett](https://github.com/fjarrett)
 
