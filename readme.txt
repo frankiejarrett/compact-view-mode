@@ -1,7 +1,7 @@
 === Compact View Mode ===
 Contributors:      fjarrett
 Tags:              admin, posts
-Requires at least: 4.0
+Requires at least: 4.4
 Tested up to:      4.5
 Stable tag:        0.4.0
 License:           GPLv2 or later
