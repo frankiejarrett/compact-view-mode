@@ -20,20 +20,6 @@ define( 'COMPACT_VIEW_MODE_URL', plugin_dir_url( __FILE__ ) );
 final class Compact_View_Mode {
 
 	/**
-	 * User setting key.
-	 *
-	 * @var string
-	 */
-	const USER_SETTING_KEY = 'cvm_post_list_mode';
-
-	/**
-	 * User setting value.
-	 *
-	 * @var string
-	 */
-	const USER_SETTING_VALUE = 'compact';
-
-	/**
 	 * Plugin instance.
 	 *
 	 * @var Compact_View_Mode
@@ -84,9 +70,9 @@ final class Compact_View_Mode {
 	public function is_compact() {
 
 		$query_var    = ! empty( $_GET['mode'] ) ? $_GET['mode'] : null;
-		$user_setting = get_user_setting( static::USER_SETTING_KEY );
+		$user_setting = get_user_setting( 'cvm_post_list_mode' );
 
-		return in_array( static::USER_SETTING_VALUE, array( $query_var, $user_setting ) );
+		return in_array( 'compact', array( $query_var, $user_setting ) );
 
 	}
 
@@ -163,7 +149,7 @@ final class Compact_View_Mode {
 		?>
 		<script type="text/javascript">
 			jQuery( function( $ ) {
-				$( '#adv-settings .view-mode legend' ).after( "<label for='compact-view-mode'><input id='compact-view-mode' type='radio' name='mode' value='<?php echo esc_attr( static::USER_SETTING_VALUE ) ?>'<?php checked( $this->is_compact() ) ?> /> <?php _e( 'Compact View', 'compact-view-mode' ) ?></label>" );
+				$( '#adv-settings .view-mode legend' ).after( "<label for='compact-view-mode'><input id='compact-view-mode' type='radio' name='mode' value='compact'<?php checked( $this->is_compact() ) ?> /> <?php _e( 'Compact View', 'compact-view-mode' ) ?></label>" );
 			} );
 		</script>
 		<?php
@@ -183,15 +169,15 @@ final class Compact_View_Mode {
 
 		}
 
-		if ( static::USER_SETTING_VALUE !== $_GET['mode'] ) {
+		if ( 'compact' !== $_GET['mode'] ) {
 
-			delete_user_setting( static::USER_SETTING_KEY );
+			delete_user_setting( 'cvm_post_list_mode' );
 
 			return;
 
 		}
 
-		set_user_setting( static::USER_SETTING_KEY, static::USER_SETTING_VALUE );
+		set_user_setting( 'cvm_post_list_mode', 'compact' );
 
 	}
 
@@ -217,15 +203,14 @@ final class Compact_View_Mode {
 
 		global $wpdb;
 
-		$user_setting_key = static::USER_SETTING_KEY;
-		$results          = $wpdb->get_col( "SELECT user_id FROM {$wpdb->usermeta} WHERE meta_key = 'wp_user-settings' AND meta_value LIKE '%%{$user_setting_key}%%';" );
+		$results = $wpdb->get_col( "SELECT user_id FROM {$wpdb->usermeta} WHERE meta_key = 'wp_user-settings' AND meta_value LIKE '%%cvm_post_list_mode%%';" );
 
 		foreach ( $results as $user_id ) {
 
 			$user_id  = absint( $user_id );
 			$settings = wp_parse_args( get_user_meta( $user_id, 'wp_user-settings', true ) );
 
-			unset( $settings[ $user_setting_key ] );
+			unset( $settings['cvm_post_list_mode'] );
 
 			$settings['posts_list_mode'] = 'list';
 
