@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Compact View Mode
  * Description: Adds a Compact View mode to the screen options when viewing posts.
- * Version: 0.4.0
+ * Version: 0.4.1
  * Author: Frankie Jarrett
  * Author URI: https://frankiejarrett.com
  * Text Domain: compact-view-mode
@@ -12,7 +12,7 @@
  * Copyright © 2016 Frankie Jarrett. All Rights Reserved.
  */
 
-define( 'COMPACT_VIEW_MODE_VERSION', '0.4.0' );
+define( 'COMPACT_VIEW_MODE_VERSION', '0.4.1' );
 define( 'COMPACT_VIEW_MODE_PLUGIN', plugin_basename( __FILE__ ) );
 define( 'COMPACT_VIEW_MODE_DIR', plugin_dir_path( __FILE__ ) );
 define( 'COMPACT_VIEW_MODE_URL', plugin_dir_url( __FILE__ ) );
