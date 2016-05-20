@@ -39,6 +39,7 @@ final class Compact_View_Mode {
 
 		}
 
+		add_action( 'plugins_loaded',        array( $this, 'i18n' ) );
 		add_action( 'send_headers',          array( $this, 'send_headers' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ) );
 		add_action( 'admin_footer-edit.php', array( $this, 'edit_screen_footer' ) );
@@ -110,6 +111,42 @@ final class Compact_View_Mode {
 	}
 
 	/**
+	 * Load languages.
+	 *
+	 * @action plugins_loaded
+	 */
+	public function i18n() {
+
+		load_plugin_textdomain( 'compact-view-mode' );
+
+	}
+
+	/**
+	 * Listens for the mode to change and sets the user setting.
+	 *
+	 * @action send_headers
+	 */
+	public function send_headers() {
+
+		if ( ! $this->is_edit_screen() || ! $this->is_view_mode_post_type() || empty( $_GET['mode'] ) ) {
+
+			return;
+
+		}
+
+		if ( 'compact' !== $_GET['mode'] ) {
+
+			delete_user_setting( 'cvm_post_list_mode' );
+
+			return;
+
+		}
+
+		set_user_setting( 'cvm_post_list_mode', 'compact' );
+
+	}
+
+	/**
 	 * Enqueue scripts and styles.
 	 *
 	 * @action admin_enqueue_scripts
@@ -153,31 +190,6 @@ final class Compact_View_Mode {
 			} );
 		</script>
 		<?php
-
-	}
-
-	/**
-	 * Listens for the mode to change and sets the user setting.
-	 *
-	 * @action send_headers
-	 */
-	public function send_headers() {
-
-		if ( ! $this->is_edit_screen() || ! $this->is_view_mode_post_type() || empty( $_GET['mode'] ) ) {
-
-			return;
-
-		}
-
-		if ( 'compact' !== $_GET['mode'] ) {
-
-			delete_user_setting( 'cvm_post_list_mode' );
-
-			return;
-
-		}
-
-		set_user_setting( 'cvm_post_list_mode', 'compact' );
 
 	}
 
