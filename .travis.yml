@@ -6,7 +6,7 @@ language:
 
 php:
     - 5.2
-    - 7.0
+    - 7.1
 
 env:
     - WP_VERSION=4.4 WP_MULTISITE=0
@@ -18,9 +18,9 @@ env:
 
 matrix:
     exclude:
-        - php: 7.0
+        - php: 7.1
           env: WP_VERSION=4.4 WP_MULTISITE=0
-        - php: 7.0
+        - php: 7.1
           env: WP_VERSION=4.4 WP_MULTISITE=1
 
 install:
