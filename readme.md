@@ -11,6 +11,7 @@ View your post list in a more precise and compact way.
 **Stable tag:** 0.4.2  
 **License:** [GPL-2.0](https://www.gnu.org/licenses/gpl-2.0.html)  
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/5b048751c60048b988b1bf28be29db0d)](https://www.codacy.com/app/fjarrett/compact-view-mode?utm_source=github.com&utm_medium=referral&utm_content=fjarrett/compact-view-mode&utm_campaign=badger)
 [![Build Status](https://travis-ci.org/fjarrett/compact-view-mode.svg?branch=master)](https://travis-ci.org/fjarrett/compact-view-mode) 
 
 ## Description ##
